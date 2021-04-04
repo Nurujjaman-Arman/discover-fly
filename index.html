@@ -11,6 +11,7 @@
         rel="stylesheet">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
 
 <body>
@@ -51,20 +52,20 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="first-class-count" class="inp-style inp-width" type="number" name="">
                 </div>
                 <div class="plus-minus-btn">
-                    <p>+ -</p>
+                    <p><button id="first-plus" onclick="inputValue('first', true)" class="btn btn-light">+</button><button onclick="inputValue('first', false)" id="first-minus" class="btn btn-light">-</button></p>
                 </div>
             </div>
             
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="economy-class-count" class="inp-style inp-width" type="number" name="">
                 </div>
                 <div class="plus-minus-btn">
-                    <p> <span>+</span> <span>-</span> </p>
+                    <p> <button onclick="inputValue('economy', true)" id="economy-plus" class="btn btn-light">+</button> <button onclick="inputValue('economy', false)" id="economy-minus" class="btn btn-light">-</button> </p>
                 </div>
             </div>
             <div class="calculations">
@@ -73,7 +74,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p>$<span id="sub-total">500</span></p>
                     </div>
                 </div>
 
@@ -82,7 +83,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p>$<span id="tax">50</span></p>
                     </div>
                 </div>
                 <hr>
@@ -91,7 +92,7 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p>$<span id="total">550</span></p>
                     </div>
                 </div>
             </div>
@@ -105,6 +106,69 @@
     </section>
 
     <!--Thank You-->
+
+    <script>
+
+
+        function inputValue(sit, isIncrease){
+            const sitInput=document.getElementById(sit+"-class-count");
+            const sitCount=parseInt(sitInput.value);
+
+            if(isIncrease==true){
+                sitNewCount=sitCount+1;
+                sitInput.value=sitNewCount;
+
+                
+            }
+
+            if(isIncrease==false && sitCount>0){
+                sitNewCount=sitCount-1;
+                sitInput.value=sitNewCount;
+                
+
+            }
+            total();
+            
+            
+        }
+        
+        // function sitAmount(sit){
+
+        //     if(sit=="first"){
+        //         let firstAmount=sitNewCount*150;
+
+        //         return firstAmount;
+        //     }
+        //     if(sit=="economy"){
+        //         let economyAmount=sitNewCount*100;
+        //         return economyAmount;
+        //     }
+        // }
+
+        function total(){
+            const firstInput=document.getElementById('first-class-count');
+            const economyInput=document.getElementById('economy-class-count');
+
+            const firstCount=parseInt(firstInput.value);
+            const economyCount=parseInt(economyInput.value);
+
+            const subtotal=document.getElementById('sub-total');
+
+            const newSubTotal=firstCount*150 + economyCount*100;
+
+            subtotal.innerText=newSubTotal;
+            
+
+            const vat=document.getElementById('tax');
+            const newVat=newSubTotal*0.1;
+            vat.innerText=newVat;
+
+            const total=document.getElementById('total');
+            const newTotal=newSubTotal+newVat;
+            total.innerText=newTotal;    
+        }
+    </script>
+
 </body>
 
 </html>

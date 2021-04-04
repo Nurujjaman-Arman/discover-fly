@@ -72,6 +72,10 @@ nav ul li a:hover, a.active{
     margin-top: 10px;
     word-spacing: 20px;
 }
+#first-plus, #first-minus, #economy-plus, #economy-minus {
+    cursor:pointer;
+}
+
 .booking-form  .calculations{
     margin: 10px 0;
 }
